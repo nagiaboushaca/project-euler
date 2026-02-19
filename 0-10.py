@@ -57,7 +57,7 @@ def prob3():
     listFactors = []
 
     def checkPrime(x):
-        for i in range(2, math.ceil(math.sqrt(x))):
+        for i in range(2, math.ceil(math.sqrt(x))+1):
             if num % i == 0:
                 return False
         return True
@@ -88,3 +88,71 @@ def prob4():
                 y = y - 1
         x = x-1
 
+def prob5():
+    product = 1
+
+    list = []
+    for i in range(1, 21):
+        list.append(i) #1-20
+
+    list.reverse() #20-1
+
+    primes = [2, 3, 5, 7, 11, 13, 17, 19]
+    
+    for i in range(0, len(primes)):
+        product = product * primes[i]
+    product = product * 2**3 # to get 4, 8, 16, 14
+    product = product * 3 # to get 9. Now we also have 6 and 12, 18
+    print(product)
+
+
+def prob6():
+    sumOfSquares = 0
+    squareOfSum = 0
+    for i in range(1, 101):
+        sumOfSquares += i**2
+        squareOfSum += i
+
+    print(sumOfSquares - squareOfSum**2) # project euler accepted positive version of this answer
+
+
+def prob7():
+    count = 1 # count 2 already, as it is the only even prime
+    num = 3
+
+    def checkPrime(x):
+        for i in range(2, math.ceil(math.sqrt(x))+1):
+            if num % i == 0:
+                return False
+        return True
+
+
+    while count < 10000:
+        num+=2
+        if checkPrime(num):
+            count+=1
+    print(num)
+
+def prob8():
+    num = 7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450
+    # find 13 adjacent digits that don't have a 0, and find highest product
+    # string processing for ease
+
+    string = str(num)
+    highScore = 0
+
+    for i in range(0, len(string)):
+        substring = string[i:i+13]
+        if "0" in substring:
+            indexOfZero = string[i:i+13].find("0")
+            i = i + indexOfZero
+        else:
+            product = 1
+            for j in range(0, len(substring)):
+                product = product * int(substring[j])
+            if product > highScore:
+                highScore = product
+    print(highScore)
+
+
+prob8()
