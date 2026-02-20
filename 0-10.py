@@ -154,5 +154,30 @@ def prob8():
                 highScore = product
     print(highScore)
 
+def prob9():
+    # for a+b+c = 1000, a > 200 rough estimate
+    for a in range(199,1000):
+        for b in range(1, 1000):
+            c = 1000 - a - b
+            if (a*a + b*b == c*c):
+                print(a*b*c)
+                return
+    return
+            
+def prob10():
+    sum = 0
 
-prob8()
+    def checkPrime(x):
+        for i in range(2, math.ceil(math.sqrt(x))+1):
+            if x % i == 0:
+                return False
+        return True
+    
+    # takes ~10 sec
+    for i in range(3, 2000000):
+        if checkPrime(i):
+            sum += i
+        i+=1
+    print(sum + 2)
+
+prob10()
