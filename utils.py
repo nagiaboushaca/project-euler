@@ -26,6 +26,8 @@ def numFactors(x):
     return count
 
 def nchooser(n,r):
+    if r > n:
+        return None
     return factorial(n) / (factorial(r)*factorial(n-r))
 
 def factorial(x):
