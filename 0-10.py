@@ -179,5 +179,3 @@ def prob10():
             sum += i
         i+=1
     print(sum + 2)
-
-prob10()
