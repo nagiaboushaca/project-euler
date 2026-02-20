@@ -301,4 +301,84 @@ def prob17():
         ans += len(stringRepNum(i))
     print(ans)
 
-prob17()
+# problems says I can brute force, but later will have to optimize
+# I suspect this requires dynamic programming? let me try below approach first
+# idea:
+#                       x
+#                      y y
+#                     z z z
+#                    f f f f
+#                   g g g g g
+# Base case is just x
+# Then x + max(y1, y2) for row y
+# assume we know the answer until row f
+# then we can use the previous optimal answer: opt(f) + max(g(i)+ g(i+1)). Then in the current bottommost row, we only
+# need to check the paths that contain the values greater than current max(z(i)+ z(i+1)), if there are none, then opt(f) + max(z(i)+ z(i+1)) is the answer
+# not sure if this is enough to solve the 100 row problem though
+def prob18():
+    return
+
+def prob19():
+    nonLeapDict = {
+        1: 31,
+        2: 28,
+        3: 31,
+        4: 30,
+        5: 31,
+        6: 30,
+        7: 31,
+        8: 31,
+        9: 30,
+        10: 31,
+        11: 30,
+        12: 31
+    }
+    leapDict = {
+        1: 31,
+        2: 29,
+        3: 31,
+        4: 30,
+        5: 31,
+        6: 30,
+        7: 31,
+        8: 31,
+        9: 30,
+        10: 31,
+        11: 30,
+        12: 31
+    }
+    def isLeapYear(year):
+        if year % 100 == 0:
+            # if a century, only true if also divisible by 400
+            return year % 400 == 0
+        else:
+            return year % 4 == 0
+        
+    # 0 is sunday, 6 is saturday
+    def countSundaysAndReturnFirstDayNextYear(startingDay, isLeapYear):
+        daysDict = leapDict if isLeapYear else nonLeapDict
+        day = startingDay
+        count = 0
+        for i in range(1, 13):
+            for j in range(0, daysDict[i]):
+                if day == 0 and j == 0:
+                    count += 1
+                day = (day + 1) % 7
+        return [count, day]
+
+    ans = 0
+    startingDay = 1 # monday 1900 Jan 1
+    startingDay = countSundaysAndReturnFirstDayNextYear(startingDay, isLeapYear(1900))[1] # day of Jan 1 1901
+    for i in range(1901, 2001):
+        [count, firstDayNextYear] = countSundaysAndReturnFirstDayNextYear(startingDay, isLeapYear(i))
+        ans += count
+        startingDay = firstDayNextYear
+    print(ans)
+
+def prob20():
+    num = utils.factorial(100)
+    ans = 0
+    for i in range(0, len(str(num))):
+        ans += int(str(num)[i])
+    print(ans)
+prob18()
